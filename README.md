@@ -7,6 +7,18 @@ This will generate the initial passwords:
 terraform apply 
 ```
 
+To use this module in your terraform: 
+```
+module "passwords" {
+  source  = "./terraform-random-passwords"
+  primary = true
+}
+
+output "active_password" {
+  value = module.passwords.active_password
+}
+```
+
 The output represents the password which will be used.
 
 # Password Swapping
@@ -20,7 +32,7 @@ TF_VAR_primary=false terraform apply
 
 # Backup Password Rotation
 In order to rotate the secondary password: 
-run the following:
+run the following with the appriopriate state item for the backup password depending on your module structure:
 ```
 terraform destroy -target random_password.backup
 ```
